@@ -1,4 +1,4 @@
-নিচের কোডটি **Object-Oriented Programming (OOP)** এর চারটি মূল নীতি – **Abstraction**, **Encapsulation**, **Inheritance** এবং **Polymorphism** – সুন্দরভাবে দেখায়। আমি বাংলায়一步一步 ব্যাখ্যা করছি।
+
 
 ```java
 // 1. ABSTRACTION: An abstract class serves as a blueprint
