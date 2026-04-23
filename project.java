@@ -1,65 +1,60 @@
-// ABSTRACTION: An abstract class acts as a template
-abstract class Payment {
-    // ENCAPSULATION: private fields protected from outside interference
-    private double amount;
-    private String transactionId;
 
-    public Payment(double amount, String transactionId) {
-        this.amount = amount;
-        this.transactionId = transactionId;
+// 1. ABSTRACTION: An abstract class serves as a blueprint
+abstract class Animal {
+    // 2. ENCAPSULATION: Private field to hide data from direct access
+    private String name;
+
+    public Animal(String name) {
+        this.name = name;
     }
 
-    // Encapsulation: Public getters to safely access private data
-    public double getAmount() { return amount; }
-    public String getId() { return transactionId; }
+    // Encapsulation: Public getter to access private data safely
+    public String getName() {
+        return name;
+    }
 
-    // Abstraction: Every payment must implement this, but in its own way
-    public abstract void authorize();
+    // Abstraction: Every animal makes a sound, but the implementation is specific
+    public abstract void makeSound();
 }
 
-// INHERITANCE: CreditCardPayment "is-a" Payment
-class CreditCardPayment extends Payment {
-    private String cardNumber;
-
-    public CreditCardPayment(double amount, String id, String cardNumber) {
-        super(amount, id); // Passing data to the parent constructor
-        this.cardNumber = cardNumber;
+// 3. INHERITANCE: Dog "is-an" Animal
+class Dog extends Animal {
+    public Dog(String name) {
+        super(name); // Pass name to parent constructor
     }
 
     @Override
-    public void authorize() {
-        System.out.println("[Credit Card] Authorizing $" + getAmount() + " for card: " + cardNumber);
+    public void makeSound() {
+        // Accessing name via getter due to encapsulation
+        System.out.println(getName() + " says: Woof Woof!");
     }
 }
 
-// INHERITANCE: PayPalPayment "is-a" Payment
-class PayPalPayment extends Payment {
-    private String email;
-
-    public PayPalPayment(double amount, String id, String email) {
-        super(amount, id);
-        this.email = email;
+// 3. INHERITANCE: Cat "is-an" Animal
+class Cat extends Animal {
+    public Cat(String name) {
+        super(name);
     }
 
     @Override
-    public void authorize() {
-        System.out.println("[PayPal] Authorizing $" + getAmount() + " for account: " + email);
+    public void makeSound() {
+        System.out.println(getName() + " says: Meow Meow!");
     }
 }
 
-// MAIN CLASS
-public class PaymentSystem {
+// Main Class to run the system
+public class Zoo {
     public static void main(String[] args) {
-        // POLYMORPHISM: Storing different objects in a single Payment list
-        Payment[] wallet = {
-            new CreditCardPayment(150.00, "TXN001", "1234-5678-9012"),
-            new PayPalPayment(45.50, "TXN002", "user@example.com")
+        // 4. POLYMORPHISM: Storing different animal types in one Animal array
+        Animal[] myPets = {
+            new Dog("Buddy"),
+            new Cat("Kitty")
         };
 
-        System.out.println("--- Processing Payments ---");
-        for (Payment p : wallet) {
-            // Polymorphism: Java knows which 'authorize' to call at runtime
-            p.authorize(); 
+        System.out.println("--- Animal Sound System ---");
+        for (Animal a : myPets) {
+            // Polymorphism: Java decides at runtime which sound to play
+            a.makeSound(); 
         }
     }
 }
